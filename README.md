@@ -4,7 +4,7 @@
 
 ## 💻 Sobre o projeto
 
-O projeto consiste em um aplicativo para auxiliar na edição de imagens.
+O projeto consiste em um aplicativo desenvolvido em React Native para auxiliar na edição de imagens.
 
 ## 🛠 Tecnologias
 
