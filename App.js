@@ -16,7 +16,7 @@ export default function App() {
     })();
   }, []);
 
-  const _rotate90andFlip = async () => {
+  const rotate90andFlip = async () => {
     const manipResult = await manipulateAsync(
       image.localUri || image.uri,
       [
@@ -28,7 +28,19 @@ export default function App() {
     setImage(manipResult);
   };
 
-  const _renderImage = () => (
+  const mirrorImage = async () => {
+    const manipResult = await manipulateAsync(
+      image.localUri || image.uri,
+      [
+        { rotate: 180 },
+        { flip: FlipType.Vertical },
+      ],
+      { compress: 1, format: SaveFormat.JPEG }
+    );
+    setImage(manipResult);
+  };
+
+  const renderImage = () => (
     <View style={styles.imageContainer}>
       <Image
         source={{ uri: image.localUri || image.uri }}
@@ -39,8 +51,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {ready && image && _renderImage()}
-      <Button title="Rotate and Flip" onPress={_rotate90andFlip} />
+      {ready && image && renderImage()}
+      <View style={styles.buttonContainer}>
+        <Button title="Rotate and Flip" onPress={rotate90andFlip} color="#ff304f" />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Mirror Image" onPress={mirrorImage} color="#ff304f" />
+      </View>
     </View>
   );
 }
@@ -57,4 +74,7 @@ const styles = StyleSheet.create({
     height: 200,
     marginBottom: 10,
   },
+  buttonContainer: {
+    marginBottom: 10,
+  }
 });
