@@ -16,17 +16,17 @@ export default function App() {
     })();
   }, []);
 
-  // const _rotate90andFlip = async () => {
-  //   const manipResult = await manipulateAsync(
-  //     image.localUri || image.uri,
-  //     [
-  //       { rotate: 90 },
-  //       { flip: FlipType.Vertical },
-  //     ],
-  //     { compress: 1, format: SaveFormat.JPEG }
-  //   );
-  //   setImage(manipResult);
-  // };
+  const _rotate90andFlip = async () => {
+    const manipResult = await manipulateAsync(
+      image.localUri || image.uri,
+      [
+        { rotate: 90 },
+        { flip: FlipType.Vertical },
+      ],
+      { compress: 1, format: SaveFormat.JPEG }
+    );
+    setImage(manipResult);
+  };
 
   const _renderImage = () => (
     <View style={styles.imageContainer}>
