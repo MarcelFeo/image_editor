@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, StyleSheet, View } from 'react-native';
+import { Button, Image, StyleSheet, View, TextInput } from 'react-native';
 import { Asset } from 'expo-asset';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
@@ -55,7 +55,7 @@ export default function App() {
     const manipResult = await manipulateAsync(
       image.localUri || image.uri,
       [
-        { crop: { height: 50, originX: 180, originY: 180, width: 50 } },
+        { crop: { height: 200, originX: 180, originY: 180, width: 250 } },
       ],
       { compress: 1, format: SaveFormat.JPEG }
     );
@@ -81,7 +81,11 @@ export default function App() {
         <Button title="Mirror Image" onPress={mirrorImage} color="#ff304f" />
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Resize" onPress={resizeImage} color="#ff304f" />
+        <TextInput style={styles.input} placeholder="Height" ></TextInput>
+        <TextInput style={styles.input} placeholder="Width"></TextInput>
+        <TextInput style={styles.input} placeholder="originX"></TextInput>
+        <TextInput style={styles.input} placeholder="originY"></TextInput>
+        <Button title="Resize" onPress={resizeImage} color="#ff304f"/>
       </View>
       <View style={styles.buttonContainer}>
         <Button title="Crop" onPress={cropImage} color="#ff304f" />
@@ -96,6 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'gray',
   },
   image: {
     width: 250,
@@ -104,5 +109,21 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginBottom: 10,
-  }
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: 350,
+    borderWidth: 3,
+    justifyContent: 'center',
+    padding: 10,
+
+    borderColor: '#61121e',
+  },
+  input: {
+    width: 75,
+    backgroundColor: '#fff',
+    marginRight: 10,
+    marginBottom: 10,
+    borderRadius: 2,
+    padding: 5,
+  },
 });
