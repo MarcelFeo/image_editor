@@ -51,16 +51,16 @@ export default function App() {
     setImage(manipResult);
   };
 
-  // const cropImage = async () => {
-  //   const manipResult = await manipulateAsync(
-  //     image.localUri || image.uri,
-  //     [
-  //       { resize: { height: 50, width: 50 } },
-  //     ],
-  //     { compress: 1, format: SaveFormat.JPEG }
-  //   );
-  //   setImage(manipResult);
-  // };
+  const cropImage = async () => {
+    const manipResult = await manipulateAsync(
+      image.localUri || image.uri,
+      [
+        { crop: { height: 50, originX: 180, originY: 180, width: 50 } },
+      ],
+      { compress: 1, format: SaveFormat.JPEG }
+    );
+    setImage(manipResult);
+  };
 
   const renderImage = () => (
     <View style={styles.imageContainer}>
@@ -83,9 +83,9 @@ export default function App() {
       <View style={styles.buttonContainer}>
         <Button title="Resize" onPress={resizeImage} color="#ff304f" />
       </View>
-      {/* <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainer}>
         <Button title="Crop" onPress={cropImage} color="#ff304f" />
-      </View> */}
+      </View>
     </View>
   );
 }
