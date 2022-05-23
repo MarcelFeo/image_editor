@@ -7,12 +7,24 @@ export default function App() {
   const [ready, setReady] = useState(false);
   const [image, setImage] = useState(null);
 
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [originX, setOriginX] = useState(0);
+  const [originY, setOriginY] = useState(0);
+  const [widthResize, setWidthResize] = useState(0);
+  const [heightResize, setHeightResize] = useState(0);
+
+  // console.log('widthResize: ' + widthResize.type + ' - ' + 'heightResize: ' + heightResize.type);
+
   useEffect(() => {
     (async () => {
       const image = Asset.fromModule(require('./assets/test_image2.jpg'));
       await image.downloadAsync();
       setImage(image);
       setReady(true);
+
+      setWidthResize(widthResize);
+      setHeightResize(heightResize);
     })();
   }, []);
 
@@ -44,7 +56,7 @@ export default function App() {
     const manipResult = await manipulateAsync(
       image.localUri || image.uri,
       [
-        { resize: { height: 50, width: 50 } },
+        { resize: { width: parseFloat(widthResize), height: parseFloat(heightResize) } },
       ],
       { compress: 1, format: SaveFormat.JPEG }
     );
@@ -55,7 +67,7 @@ export default function App() {
     const manipResult = await manipulateAsync(
       image.localUri || image.uri,
       [
-        { crop: { height: 200, originX: 180, originY: 180, width: 250 } },
+        { crop: { height: parseFloat(height), originX: parseFloat(originX), originY: parseFloat(originY), width: parseFloat(width) } },
       ],
       { compress: 1, format: SaveFormat.JPEG }
     );
@@ -81,15 +93,15 @@ export default function App() {
         <Button title="Mirror Image" onPress={mirrorImage} color="#ff304f" />
       </View>
       <View style={styles.buttonContainer}>
-        <TextInput style={styles.input} placeholder="Height" ></TextInput>
-        <TextInput style={styles.input} placeholder="Width"></TextInput>
-        <TextInput style={styles.input} placeholder="originX"></TextInput>
-        <TextInput style={styles.input} placeholder="originY"></TextInput>
+        <TextInput style={styles.input} placeholder="Height" onChange={e => setHeight(e.target.value)} value={height || ''}></TextInput>
+        <TextInput style={styles.input} placeholder="Width" onChange={e => setWidth(e.target.value)} value={width || ''}></TextInput>
+        <TextInput style={styles.input} placeholder="originX" onChange={e => setOriginX(e.target.value)} value={originX || ''}></TextInput>
+        <TextInput style={styles.input} placeholder="originY" onChange={e => setOriginY(e.target.value)} value={originY || ''}></TextInput>
         <Button title="Crop" onPress={cropImage} color="#ff304f"/>
       </View>
       <View style={styles.buttonContainer}>
-        <TextInput style={styles.input} placeholder="Height" ></TextInput>
-        <TextInput style={styles.input} placeholder="Width"></TextInput>
+        <TextInput style={styles.input} placeholder="Height" onChange={e => setHeightResize(e.target.value)} value={heightResize || ''}></TextInput>
+        <TextInput style={styles.input} placeholder="Width" onChange={e => setWidthResize(e.target.value)} value={widthResize || ''}></TextInput>
         <Button title="Resize" onPress={resizeImage} color="#ff304f" />
       </View>
     </View>
