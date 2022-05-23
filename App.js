@@ -88,6 +88,8 @@ export default function App() {
         <Button title="Crop" onPress={cropImage} color="#ff304f"/>
       </View>
       <View style={styles.buttonContainer}>
+        <TextInput style={styles.input} placeholder="Height" ></TextInput>
+        <TextInput style={styles.input} placeholder="Width"></TextInput>
         <Button title="Resize" onPress={resizeImage} color="#ff304f" />
       </View>
     </View>
