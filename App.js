@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Image, StyleSheet, View, TextInput } from 'react-native';
-import { Asset } from 'expo-asset';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
+import * as ImagePicker from 'expo-image-picker';
+
+import { Asset } from 'expo-asset';
 
 export default function App() {
-  const [ready, setReady] = useState(false);
   const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -14,58 +31,55 @@ export default function App() {
   const [widthResize, setWidthResize] = useState(0);
   const [heightResize, setHeightResize] = useState(0);
 
-  // console.log('widthResize: ' + widthResize.type + ' - ' + 'heightResize: ' + heightResize.type);
-
   useEffect(() => {
     (async () => {
-      const image = Asset.fromModule(require('./assets/test_image2.jpg'));
+      const image = Asset.fromModule(require(`${image}`));
       await image.downloadAsync();
       setImage(image);
       setReady(true);
-
-      setWidthResize(widthResize);
-      setHeightResize(heightResize);
     })();
+
+    pickImage();
   }, []);
 
   const rotate90andFlip = async () => {
     const manipResult = await manipulateAsync(
-      image.localUri || image.uri,
+      image.localUri || image,
       [
         { rotate: 90 },
         { flip: FlipType.Vertical },
       ],
-      { compress: 1, format: SaveFormat.JPEG }
+      { compress: 1, format: SaveFormat.JPEG || SaveFormat.PNG }
     );
     setImage(manipResult);
   };
 
   const mirrorImage = async () => {
     const manipResult = await manipulateAsync(
-      image.localUri || image.uri,
+      image.localUri || image,
       [
         { rotate: 180 },
         { flip: FlipType.Vertical },
       ],
-      { compress: 1, format: SaveFormat.JPEG }
+      { compress: 1, format: SaveFormat.JPEG || SaveFormat.PNG }
     );
     setImage(manipResult);
   };
 
   const resizeImage = async () => {
     const manipResult = await manipulateAsync(
-      image.localUri || image.uri,
+      image.localUri || image,
       [
         { resize: { width: parseFloat(widthResize), height: parseFloat(heightResize) } },
       ],
-      { compress: 1, format: SaveFormat.JPEG }
+      { compress: 1, format: SaveFormat.JPEG || SaveFormat.PNG }
     );
     setImage(manipResult);
   };
 
   const cropImage = async () => {
     const manipResult = await manipulateAsync(
-      image.localUri || image.uri,
+      image.localUri || image,
       [
         { crop: { height: parseFloat(height), originX: parseFloat(originX), originY: parseFloat(originY), width: parseFloat(width) } },
       ],
@@ -75,17 +89,15 @@ export default function App() {
   };
 
   const renderImage = () => (
-    <View style={styles.imageContainer}>
-      <Image
-        source={{ uri: image.localUri || image.uri }}
-        style={styles.image}
-      />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button title="Pick an image" onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
     </View>
   );
 
   return (
     <View style={styles.container}>
-      {ready && image && renderImage()}
+      {renderImage()}
       <View style={styles.buttonContainer}>
         <Button title="Rotate and Flip" onPress={rotate90andFlip} color="#ff304f" />
       </View>
