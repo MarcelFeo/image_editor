@@ -5,12 +5,12 @@ import * as ImagePicker from 'expo-image-picker';
 
 export default function App() {
   const [image, setImage] = useState(null);
-  const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
-  const [originX, setOriginX] = useState(0);
-  const [originY, setOriginY] = useState(0);
-  const [widthResize, setWidthResize] = useState(0);
-  const [heightResize, setHeightResize] = useState(0);
+  const [width, setWidth] = useState('');
+  const [height, setHeight] = useState('');
+  const [originX, setOriginX] = useState('');
+  const [originY, setOriginY] = useState('');
+  const [widthResize, setWidthResize] = useState('');
+  const [heightResize, setHeightResize] = useState('');
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -87,15 +87,15 @@ export default function App() {
         <Button title="Mirror Image" onPress={mirrorImage} color="#ff304f" />
       </View>
       <View style={styles.buttonContainer}>
-        <TextInput style={styles.input} placeholder="Height" onChange={e => setHeight(e.target.value)} value={height || ''} keyboardType="numeric"></TextInput>
-        <TextInput style={styles.input} placeholder="Width" onChange={e => setWidth(e.target.value)} value={width || ''} keyboardType="numeric"></TextInput>
-        <TextInput style={styles.input} placeholder="originX" onChange={e => setOriginX(e.target.value)} value={originX || ''} keyboardType="numeric"></TextInput>
-        <TextInput style={styles.input} placeholder="originY" onChange={e => setOriginY(e.target.value)} value={originY || ''} keyboardType="numeric"></TextInput>
+        <TextInput style={styles.input} placeholder="Height" onChangeText={setHeight} value={height} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="Width" onChangeText={setWidth} value={width} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="originX" onChangeText={setOriginX} value={originX} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="originY" onChangeText={setOriginY} value={originY} keyboardType="numeric" />
         <Button title="Crop" onPress={cropImage} color="#ff304f"/>
       </View>
       <View style={styles.buttonContainer}>
-        <TextInput style={styles.input} placeholder="Height" onChange={setHeightResize(value)} value={heightResize || ''} keyboardType="numeric"></TextInput>
-        <TextInput style={styles.input} placeholder="Width" onChange={setWidthResize(value)} value={widthResize || ''} keyboardType="numeric"></TextInput>
+        <TextInput style={styles.input} placeholder="Height" onChangeText={setHeightResize} value={heightResize} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="Width" onChangeText={setWidthResize} value={widthResize} keyboardType="numeric" />
         <Button title="Resize" onPress={resizeImage} color="#ff304f" />
       </View>
     </View>
