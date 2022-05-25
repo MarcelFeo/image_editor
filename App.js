@@ -72,7 +72,9 @@ export default function App() {
 
   const renderImage = () => (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image" onPress={pickImage} />
+      <View style={styles.buttonContainer}>
+        <Button title="Pick an image" onPress={pickImage} color="#ff304f" />
+      </View>
       {image && <Image source={{ uri: image.uri }} style={{ width: 300, height: 300 }} />}
     </View>
   );
@@ -80,23 +82,35 @@ export default function App() {
   return (
     <View style={styles.container}>
       {renderImage()}
-      <View style={styles.buttonContainer}>
-        <Button title="Rotate and Flip" onPress={rotate90andFlip} color="#ff304f" />
+      <View style={styles.functionContainer}>
+        <View style={styles.buttonContainer}>
+          <Button title="Rotate and Flip" onPress={rotate90andFlip} color="#ff304f" />
+        </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Mirror Image" onPress={mirrorImage} color="#ff304f" />
+      <View style={styles.functionContainer}>
+        <View style={styles.buttonContainer}>
+          <Button title="Mirror Image" onPress={mirrorImage} color="#ff304f" />
+        </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <TextInput style={styles.input} placeholder="Height" onChangeText={setHeight} value={height} keyboardType="numeric" />
-        <TextInput style={styles.input} placeholder="Width" onChangeText={setWidth} value={width} keyboardType="numeric" />
-        <TextInput style={styles.input} placeholder="originX" onChangeText={setOriginX} value={originX} keyboardType="numeric" />
-        <TextInput style={styles.input} placeholder="originY" onChangeText={setOriginY} value={originY} keyboardType="numeric" />
-        <Button title="Crop" onPress={cropImage} color="#ff304f"/>
+      <View style={styles.functionContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.input} placeholder="Height" onChangeText={setHeight} value={height} keyboardType="numeric" />
+          <TextInput style={styles.input} placeholder="Width" onChangeText={setWidth} value={width} keyboardType="numeric" />
+          <TextInput style={styles.input} placeholder="originX" onChangeText={setOriginX} value={originX} keyboardType="numeric" />
+          <TextInput style={styles.input} placeholder="originY" onChangeText={setOriginY} value={originY} keyboardType="numeric" />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Crop" onPress={cropImage} color="#ff304f"/>
+        </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <TextInput style={styles.input} placeholder="Height" onChangeText={setHeightResize} value={heightResize} keyboardType="numeric" />
-        <TextInput style={styles.input} placeholder="Width" onChangeText={setWidthResize} value={widthResize} keyboardType="numeric" />
-        <Button title="Resize" onPress={resizeImage} color="#ff304f" />
+      <View style={styles.functionContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.input} placeholder="Height" onChangeText={setHeightResize} value={heightResize} keyboardType="numeric" />
+          <TextInput style={styles.input} placeholder="Width" onChangeText={setWidthResize} value={widthResize} keyboardType="numeric" />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Resize" onPress={resizeImage} color="#ff304f" />
+        </View>
       </View>
     </View>
   );
@@ -105,10 +119,16 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'gray',
+    backgroundColor: '#000',
+  },
+  functionContainer: {
+    // borderBottomColor: '#ff304f',
+    // borderWidth: 3,
+    // borderBottomLeftRadius: 5,
+    // borderBottomRightRadius: 5,
+    padding: 10,
   },
   image: {
     width: 250,
@@ -120,11 +140,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: 350,
-    borderWidth: 3,
     justifyContent: 'center',
     padding: 10,
-
-    borderColor: '#61121e',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   input: {
     width: 75,
