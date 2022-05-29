@@ -6,6 +6,8 @@
 
 O projeto consiste em um aplicativo desenvolvido em React Native para auxiliar na edição de imagens.
 
+Link para o apk do projeto =>
+
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
