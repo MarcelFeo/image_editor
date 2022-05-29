@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "image_editor",
+    "name": "Image Editor",
     "slug": "image_editor",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.marcel29.imageeditor"
     },
     "web": {
       "favicon": "./assets/favicon.png"
