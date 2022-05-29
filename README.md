@@ -6,7 +6,7 @@
 
 O projeto consiste em um aplicativo desenvolvido em React Native para auxiliar na edição de imagens.
 
-Link para o apk do projeto =>
+Link para o apk do projeto => https://expo.dev/artifacts/1208605f-e5f1-4032-8fa2-3c9c46daaf81
 
 ## 🛠 Tecnologias
 
